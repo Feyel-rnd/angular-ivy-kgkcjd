@@ -1,0 +1,143 @@
+
+
+
+<button mat-button [matMenuTriggerFor]="mod">A partir d'un modèle</button>
+<mat-menu #mod="matMenu">
+  <button mat-menu-item>Choisir un modèle</button>
+  <button mat-menu-item>Créer un nouveau modèle</button>
+</mat-menu>
+<button mat-button>Créer un formulaire vierge</button>
+
+
+
+
+<h1 class="text-center">Créer un questionnaire</h1>
+<br />
+
+<form (ngSubmit)="onSubmit()">
+  <mat-card class="fo">
+    <mat-form-field class="title_input" appearance="fill">
+      <mat-label>Nom de l'analyse</mat-label>
+      <input matInput #nom_analyse />
+    </mat-form-field>
+
+    <mat-form-field appearance="fill">
+      <mat-label>Valide le</mat-label>
+      <input matInput [matDatepicker]="on" />
+      <mat-hint>JJ/MM/AAAA</mat-hint>
+      <mat-datepicker-toggle matSuffix [for]="on"></mat-datepicker-toggle>
+      <mat-datepicker #on></mat-datepicker>
+    </mat-form-field>
+
+    <mat-form-field appearance="fill">
+      <mat-label>Type d'analyse</mat-label>
+      <mat-select [(value)]="Selected">
+        <mat-option *ngFor="let model of models" value="{{ model.name }}">
+          {{ model.name }}
+        </mat-option>
+      </mat-select>
+    </mat-form-field>
+
+    <div *ngIf="Selected == 'Personnalisé'; else fields" class="container">
+      <table class="" formArrayName="quantities">
+        <tr>
+          <th colspan="2">Champs du formulaire :</th>
+          <th>
+            <button
+              mat-button
+              mat-mini-fab
+              color="primary"
+              type="button"
+              (click)="addQuantity()"
+            >
+              <mat-icon>add </mat-icon>
+            </button>
+          </th>
+        </tr>
+        <tr *ngFor="let quantity of quantities().controls; let i = index">
+          <mat-card>
+            <tr>
+              <mat-form-field appearance="fill">
+                <mat-label>Nom du champ</mat-label>
+                <input matInput />
+              </mat-form-field>
+            </tr>
+            <td>
+              <mat-form-field appearance="fill">
+                <mat-label>Type d'analyse</mat-label>
+                <mat-select [(value)]="Question_Type">
+                  <mat-option
+                    *ngFor="let type of question_types"
+                    value="{{ type.name }}"
+                  >
+                    {{ type.name }}
+                  </mat-option>
+                </mat-select>
+              </mat-form-field>
+            </td>
+            <td>
+              <mat-form-field appearance="fill">
+                <mat-label>Type d'analyse</mat-label>
+                <mat-select [(value)]="Question_Type">
+                  <mat-option
+                    *ngFor="let type of question_types"
+                    value="{{ type.name }}"
+                  >
+                    {{ type.name }}
+                  </mat-option>
+                </mat-select>
+              </mat-form-field>
+            </td>
+            <td>
+              <mat-form-field appearance="fill">
+                <mat-label>Type d'analyse</mat-label>
+                <mat-select [(value)]="Question_Type">
+                  <mat-option
+                    *ngFor="let type of question_types"
+                    value="{{ type.name }}"
+                  >
+                    {{ type.name }}
+                  </mat-option>
+                </mat-select>
+              </mat-form-field>
+            </td>
+            <td>
+              <mat-form-field appearance="fill">
+                <mat-label>Type d'analyse</mat-label>
+                <mat-select [(value)]="Question_Type">
+                  <mat-option
+                    *ngFor="let type of question_types"
+                    value="{{ type.name }}"
+                  >
+                    {{ type.name }}
+                  </mat-option>
+                </mat-select>
+              </mat-form-field>
+            </td>
+            <td>
+              <button
+                mat-button
+                mat-mini-fab
+                color="warn"
+                type="button"
+                (click)="removeQuantity(i)"
+                class="btn-danger"
+              >
+                <mat-icon>delete </mat-icon>
+              </button>
+            </td>
+          </mat-card>
+          <br />
+        </tr>
+      </table>
+
+      <br />
+
+      <!-- {{this.productForm.value | json}} -->
+    </div>
+    <ng-template #fields></ng-template>
+    {{ this.productForm.value | json }}
+
+    <input type="button" mat-input value="Créer" (click)="show()" />
+  </mat-card>
+</form>

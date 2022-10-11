@@ -1,0 +1,45 @@
+<h1 class="text-center font-weight-bold">Mes analyses sensorielles</h1> <br>
+
+<table matSort  (matSortChange)="sortData($event)">
+<tr  >
+  <th  mat-sort-header="name" >Nom</th>
+  <th mat-sort-header="type">Type</th>
+  <th mat-sort-header="active">Etat</th>
+  <th mat-sort-header="actions">Actions</th>
+  <!-- <th mat-sort-header="carbs">Carbs (g)</th>
+  <th mat-sort-header="protein">Protein (g)</th> -->
+</tr>
+
+<tr class="border" *ngFor="let analyse of sortedData">
+  <td>{{analyse.name}}</td>
+  <td>{{analyse.type}}</td>
+  <td><span *ngIf="analyse.active==true; else untrue">
+    <mat-chip-list>
+      <mat-chip class="activechip">Active</mat-chip>
+    </mat-chip-list>
+  
+  </span>
+  <ng-template #untrue>
+  <mat-chip-list>
+  <mat-chip class="inactivechip"> Inactive</mat-chip>
+</mat-chip-list>
+  </ng-template>
+  </td>
+  
+  <td>
+    <span *ngIf="analyse.active==true; else untrue2">
+    <button disabled mat-mini-fab color="primary" >
+  <mat-icon>remove_red_eye
+  </mat-icon>
+</button>
+</span>
+<ng-template #untrue2><button mat-mini-fab color="primary" >
+<mat-icon>remove_red_eye
+</mat-icon>
+</button></ng-template>
+</td>
+  <!-- <td>{{dessert.carbs}}</td>
+  <td>{{dessert.protein}}</td> -->
+</tr>
+</table>
+<br>

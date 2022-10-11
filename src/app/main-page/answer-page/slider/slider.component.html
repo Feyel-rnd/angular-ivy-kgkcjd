@@ -1,0 +1,24 @@
+
+
+<mat-card class="example-result-card">
+<mat-card-content  >
+
+  <div class="example-label-container" [class]="vertical ? 'example-label-vertical' : 'example-label-horizontal'">
+  <label id="example-radio-group-label">{{field.label}}</label>
+  </div>
+  <mat-slider
+      class="example-margin"
+      [disabled]="disabled"
+      [invert]="invert"
+      [max]="field.format.max"
+      [min]="field.format.min"
+      [step]="field.format.step"
+      [thumbLabel]="thumbLabel"
+      [tickInterval]="getSliderTickInterval()"
+      #slidervalue
+      [vertical]="vertical"
+      aria-labelledby="example-name-label">
+  </mat-slider>
+  {{slidervalue.value}}
+</mat-card-content>
+</mat-card>

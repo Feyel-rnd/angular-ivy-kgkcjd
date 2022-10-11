@@ -1,0 +1,14 @@
+<mat-card>
+<label id="example-radio-group-label">{{field.label}}</label>
+<mat-radio-group
+  aria-labelledby="example-radio-group-label"
+  class="example-radio-group"
+ >
+  <mat-radio-button class="example-radio-button" *ngFor="let choice of field.format.choices" [value]="choice">
+    {{choice}}
+  </mat-radio-button>
+</mat-radio-group>
+<!-- <div>Your favorite season is: {{favoriteSeason}}</div> -->
+
+
+</mat-card>

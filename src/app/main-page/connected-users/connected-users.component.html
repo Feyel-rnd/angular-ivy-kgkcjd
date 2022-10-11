@@ -1,0 +1,60 @@
+<h1 class="text-center font-weight-bold">Tous les utilisateurs</h1><br>
+
+<table matSort  (matSortChange)="sortData($event)">
+<tr  >
+  <th  mat-sort-header="username" >Nom</th>
+  <th mat-sort-header="email">Email</th>
+  <th mat-sort-header="last_login">Dernière connexion</th>
+  <th mat-sort-header="active">Roles</th>
+  <!-- <th mat-sort-header="actions">Actions</th> -->
+  <!-- <th mat-sort-header="carbs">Carbs (g)</th>
+  <th mat-sort-header="protein">Protein (g)</th> -->
+</tr>
+
+<tr class="border" *ngFor="let user of sortedData">
+  <td><img
+    src="https://ui-avatars.com/api/?name={{ user.username }}"
+    alt="hugenerd"
+    width="30"
+    height="30"
+    class="rounded-circle"
+  />{{user.username}}</td>
+  <td>{{user.user_mail}}</td>
+  <td>{{user.last_login.toLocaleString()}}</td>
+  <td><span *ngFor="let role of user.roles">
+  <mat-chip-list><mat-chip>{{role}}</mat-chip></mat-chip-list>
+  </span>
+  </td>
+<!--   
+  <td><span *ngIf="this.app.allUsers[user.id].isLoggedIn; else untrue">
+    <mat-chip-list>
+      <mat-chip class="activechip">Connecté</mat-chip>
+    </mat-chip-list>
+  
+  </span>
+  <ng-template #untrue>
+  <mat-chip-list>
+  <mat-chip class="inactivechip"> Déconnecté</mat-chip>
+</mat-chip-list>
+  </ng-template>
+  </td>
+  
+  <td>
+    <span *ngIf="this.app.allUsers[user.id].isLoggedIn && myID!=user.id; else untrue2">
+    <button  mat-mini-fab color="primary" (click)="logOut(user.id)" >
+  <mat-icon>logout
+  </mat-icon>
+</button>
+</span>
+<ng-template #untrue2><button disabled mat-mini-fab >
+<mat-icon>logout
+</mat-icon>
+</button>
+</ng-template>
+
+</td> -->
+  <!-- <td>{{dessert.carbs}}</td>
+  <td>{{dessert.protein}}</td> -->
+</tr>
+</table>
+<br>
