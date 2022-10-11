@@ -22,6 +22,7 @@ import { SensoryProfilesPageComponent } from './main-page/sensory-profiles-page/
 //import { RegisterFormComponent } from './register-form/register-form.component';
 import { CommonModule } from '@angular/common';
 import { RadioButtonComponent } from './main-page/answer-page/radio-button/radio-button.component';
+import { SuccessComponent } from './main-page/my-profile-page/success/success.component';
 
 //const routes: Routes = []; // sets up routes constant where you define your routes
 const routes: Routes = [
@@ -79,8 +80,15 @@ const routes: Routes = [
       },
       {
         path: 'profile', // child route path
-        component: MyProfilePageComponent, // child route component that the router renders
+        component: MyProfilePageComponent,
+          children : [
+            { path: 'success', // child route path
+      component: SuccessComponent, // child route component that the router renders
+      canActivate: [ValidTokenGuard],
+    }
+          ]
       },
+      
     ],
   },
   // { path: 'register-component', component: RegisterFormComponent },

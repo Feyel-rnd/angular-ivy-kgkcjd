@@ -6,6 +6,7 @@ import { MatChipInputEvent } from '@angular/material/chips';
 import { Observable } from 'rxjs';
 import { environment } from '../../../environments/environment';
 import {map, startWith} from 'rxjs/operators';
+import { Router } from '@angular/router';
 
 export interface User {
   _id: any;
@@ -34,7 +35,13 @@ username : any;
 created : any;
 last_login : any;
 roles : Array<String>
+toSuccess = false;
+showSuccess() {
+  this.toSuccess = true;
+  const redirectUrl = "../success"
+  this.router.navigate(['/dashboard/profile/success']);
 
+}
   ngOnInit() {
    const user = this.app.allUsers[sessionStorage.getItem("userId")]
     
@@ -58,7 +65,7 @@ roles : Array<String>
 
   @ViewChild('fruitInput') fruitInput: ElementRef<HTMLInputElement>;
 
-  constructor() {
+  constructor(public router: Router) {
     this.filteredFruits = this.fruitCtrl.valueChanges.pipe(
       startWith(null),
       map((fruit: string | null) => (fruit ? this._filter(fruit) : this.allFruits.slice())),

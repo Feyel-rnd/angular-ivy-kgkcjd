@@ -39,7 +39,7 @@ import { SliderComponent } from './answer-page/slider/slider.component';
     MyAnalysisPageComponent,
     SettingsPageComponent,
     RadioButtonComponent,
-    SliderComponent
+    SliderComponent,
   ],
   schemas: [CUSTOM_ELEMENTS_SCHEMA],
 })

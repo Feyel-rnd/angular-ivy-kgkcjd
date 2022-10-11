@@ -1,5 +1,5 @@
-<mat-card>
-  <form>
+<mat-card >
+  <form *ngIf="!toSuccess; else success">
   <div class="container rounded bg-white">
     <div class="row">
       <div class="col-md-3 border-right">
@@ -21,8 +21,8 @@
           /><span class="font-weight-bold">{{ username }}</span
           ><span class="text-black-50">{{ user_mail }}</span
           ><span><br><div class="text-center">
-          <button mat-button color="primary" class="border" type="button">
-            Sauvegarder les changements
+          <button (click)="showSuccess()" mat-button color="accent" class="border" type="button">
+            Voir les succès 🏆
           </button>
         </div> </span>
         </div>
@@ -134,3 +134,5 @@
   </div>
   </form>
 </mat-card>
+<ng-template #success>
+<router-outlet></router-outlet> </ng-template>
