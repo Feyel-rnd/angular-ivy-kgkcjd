@@ -5,6 +5,19 @@ import {ConnexionFormComponent} from '../connexion-form/connexion-form.component
 import { environment } from '../../environments/environment';
 import { MatSnackBar } from '@angular/material/snack-bar';
 
+
+window.onbeforeunload = function (event) {
+  var message = 'Important: Please click on \'Save\' button to leave this page.';
+  if (typeof event == 'undefined') {
+    
+    //event = window.event;
+  }
+  if (event) {
+      //event.returnValue = message;
+  }
+  environment.application.allUsers[sessionStorage.getItem("userId")].logOut()
+  return message;
+};
 //const app = ConnexionFormComponent
 @Component({
   selector: 'app-main-page',

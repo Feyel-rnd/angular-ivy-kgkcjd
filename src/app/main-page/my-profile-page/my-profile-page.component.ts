@@ -58,16 +58,7 @@ user = this.app.allUsers[sessionStorage.getItem("userId")]
   // const mongo =user.mongoClient('Cluster0');
   // const collection = mongo.db('Data').collection("users");
   
-  window.onbeforeunload = function (event) {
-    var message = 'Important: Please click on \'Save\' button to leave this page.';
-    if (typeof event == 'undefined') {
-        event = window.event;
-    }
-    if (event) {
-        event.returnValue = message;
-    }
-    return message;
-};
+
 
   this.collection.find({'id':this.user.id}).then((value:Array<User>)=>{ 
     this.user_mail = value[0].user_mail
