@@ -14,10 +14,10 @@
   right: 0;
 }
 
-.profile-buton {
+.profile-button {
   position: fixed;
-  top: 0;
-  bottom: 100%;
+  top: 100;
+  bottom: 0;
   left: 0;
   right: 0;
 }
