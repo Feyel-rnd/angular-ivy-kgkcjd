@@ -107,7 +107,7 @@ user = this.app.allUsers[sessionStorage.getItem("userId")]
   writeUser(u_sername:string,allergens:Array<string>) {
     this.collection.updateOne({'id':this.user.id},{$set:{'username':u_sername,'allergies':allergens}}).then((value)=> {
       this.openSnackBar("Les modifications ont été enregistrées !","Recharger la page").afterDismissed().subscribe(() => {
-        console.log('The snackbar was dismissed');
+        window.location.reload()
       });
     })
   }
