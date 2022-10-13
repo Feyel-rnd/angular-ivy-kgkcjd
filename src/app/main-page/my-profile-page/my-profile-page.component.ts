@@ -18,8 +18,9 @@ export interface User {
   created: Date;
   user_mail : string;
   roles : Array<string>;
-  allergens:Array<string>;
+  allergies:Array<string>;
   avatarUrl : string;
+  NoAllergyConfirmation : boolean
 }
 
 @Component({
@@ -39,7 +40,10 @@ created : any;
 last_login : any;
 roles : Array<String>
 toSuccess = false;
-allergen : string;
+allergens : string;
+fruits: string[] = [];
+ReadAllergyConfirmation : boolean;
+condition :boolean;
 showSuccess() {
   this.toSuccess = true;
   const redirectUrl = "../success"
@@ -55,12 +59,16 @@ user = this.app.allUsers[sessionStorage.getItem("userId")]
     
   // const mongo =user.mongoClient('Cluster0');
   // const collection = mongo.db('Data').collection("users");
+  
   this.collection.find({'id':this.user.id}).then((value:Array<User>)=>{ 
     this.user_mail = value[0].user_mail
     this.username = value[0].username
     this.created = value[0].created.toLocaleString()
     this.last_login = value[0].last_login.toLocaleString()
     this.roles = value[0].roles
+    this.fruits = value[0].allergies
+    this.ReadAllergyConfirmation = value[0].NoAllergyConfirmation
+     
   })
 
 
@@ -68,7 +76,7 @@ user = this.app.allUsers[sessionStorage.getItem("userId")]
   separatorKeysCodes: number[] = [ENTER, COMMA];
   fruitCtrl = new FormControl('');
   filteredFruits: Observable<string[]>;
-  fruits: string[] = [];
+  
   allFruits: string[] = ['Sésame','Céleri','Poisson','Mollusques','Fruits à coque','Gluten','Sulfites','Lupin','Crustacés','Lait','Soja','Moutarde','Arachide','Oeuf'];
 
   @ViewChild('fruitInput') fruitInput: ElementRef<HTMLInputElement>;
@@ -88,8 +96,8 @@ user = this.app.allUsers[sessionStorage.getItem("userId")]
     // Add our fruit
     if (value) {
       this.fruits.push(value);
+      
     }
-
     // Clear the input value
     event.chipInput!.clear();
 
@@ -102,10 +110,12 @@ user = this.app.allUsers[sessionStorage.getItem("userId")]
     if (index >= 0) {
       this.fruits.splice(index, 1);
     }
+    
   }
 
-  writeUser(u_sername:string,allergens:Array<string>) {
-    this.collection.updateOne({'id':this.user.id},{$set:{'username':u_sername,'allergies':allergens}}).then((value)=> {
+  writeUser(u_sername:string,allergens:Array<string>,allergyConfirmation:boolean) {
+    this.collection.updateOne({'id':this.user.id},{$set:{'username':u_sername,'allergies':allergens,"NoAllergyConfirmation":allergyConfirmation}}).then((value)=> {
+      
       this.openSnackBar("Les modifications ont été enregistrées !","Recharger la page").afterDismissed().subscribe(() => {
         window.location.reload()
       });

@@ -93,6 +93,7 @@
                 <mat-label>Allergies</mat-label>
                 <mat-chip-list #chipList aria-label="Fruit selection">
                   <mat-chip
+                    
                     *ngFor="let fruit of fruits"
                     (removed)="remove(fruit)"
                   >
@@ -116,19 +117,27 @@
                   (optionSelected)="selected($event)"
                 >
                   <mat-option
+                  
                     *ngFor="let fruit of filteredFruits | async"
                     [value]="fruit"
                   >
                     {{ fruit }}
                   </mat-option>
                 </mat-autocomplete>
+                
               </mat-form-field>
+              Ou : <br>
+              
+              <mat-checkbox #NoAllergyConfirmation disabled="{{!condition}}">Je confirme n'avoir aucune allergie alimentaire connue à ce jour.{{fruits.length}}</mat-checkbox>
+              
+              
             </div>
           </div>
         </div>
       </div>
       <div class="text-center">
-        <button mat-button color="primary" (click)="writeUser(new_user_name.value,fruits)" class="border" type="button">
+        
+        <button mat-button color="primary" (click)="writeUser(new_user_name.value,fruits,NoAllergyConfirmation.value=='true')" class="border" type="button">
           Sauvegarder les changements
         </button>
       </div>
