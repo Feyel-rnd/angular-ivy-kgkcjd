@@ -1,5 +1,10 @@
 <mat-drawer-container class="example-container">
-  <mat-drawer #drawer class="example-sidenav bg-dark" opened="isOut" mode="side">
+  <mat-drawer
+    #drawer
+    class="example-sidenav bg-dark"
+    opened="isOut"
+    mode="side"
+  >
     <div
       class="
         d-flex
@@ -8,7 +13,7 @@
         px-3
         pt-2
         text-white
-        
+        vh-100
       "
     >
       <!-- <mat-chip-list>
@@ -28,16 +33,14 @@
           text-white text-decoration-none
         "
       >
-      <!-- <img
+        <!-- <img
       src="http://cdn.shopify.com/s/files/1/0538/8242/1442/files/Feyel_claim-try.jpg?v=1618495488"
       alt="menu"
       width="50"
       height="40"
       class="rounded-circle mr-2"
     /> -->
-        <span class="fs-5 d-none mt-3 d-sm-inline"
-          >Menu</span
-        >
+        <span class="fs-5 d-none mt-3 d-sm-inline">Menu</span>
       </a>
       <ul
         class="
@@ -59,7 +62,6 @@
           <a routerLink="answer" class="nav-link align-middle px-0">
             <i class="fs-4 bi-house"></i
             ><mat-icon
-            
               matBadge="{{ analyses_actives }}"
               matBadgeSize="small"
               matTooltip="Répondre"
@@ -96,9 +98,7 @@
         <li *ngIf="authorized" class="nav-item pb-3">
           <a routerLink="connected-users" class="nav-link align-middle px-0">
             <i class="fs-4 bi-house"></i
-            ><mat-icon
-              matBadgeSize="small"
-              matTooltip="Utilisateurs"
+            ><mat-icon matBadgeSize="small" matTooltip="Utilisateurs"
               >group</mat-icon
             >
             <span class="ms-1 d-none d-sm-inline">Utilisateurs </span
@@ -108,9 +108,7 @@
         <li *ngIf="authorized" class="nav-item pb-3">
           <a routerLink="sensory-profiles" class="nav-link align-middle px-0">
             <i class="fs-4 bi-house"></i
-            ><mat-icon matTooltip="Profils sensoriels"
-              >bubble_chart</mat-icon
-            >
+            ><mat-icon matTooltip="Profils sensoriels">bubble_chart</mat-icon>
             <span class="ms-1 d-none d-sm-inline">Profils sensoriels</span
             ><span class="badge rounded-pill badge-notification">admin</span>
           </a>
@@ -118,58 +116,68 @@
       </ul>
       <hr />
       <div class="profile-button p-2">
-      <a [matMenuTriggerFor]="menu"><img
-        src="https://ui-avatars.com/api/?name={{ username }}"
-        alt="{{ username }}"
-        width="30"
-        height="30"
-        class="rounded-circle"
-      /><span class="d-none text-light d-sm-inline mx-1">{{ username }}</span><mat-icon class="pt-2 text-light">arrow_drop_down</mat-icon></a>
-  <mat-menu #menu="matMenu">
-  <button  mat-button routerLink="profile"><mat-icon class="mr-1 mb-1">perm_identity</mat-icon>Profil</button><br>
-  <button  mat-button routerLink="settings" ><mat-icon class="mr-1 mb-1">settings</mat-icon>Paramètres</button>
-  <mat-divider></mat-divider>
-  <button  mat-button (click)="LogOut()"><mat-icon class="mr-1 mb-1">logout</mat-icon>
-  Se déconnecter
-  </button>
-  </mat-menu>
+        <a [matMenuTriggerFor]="menu"
+          ><img
+            src="https://ui-avatars.com/api/?name={{ username }}"
+            alt="{{ username }}"
+            width="30"
+            height="30"
+            class="rounded-circle"
+          /><span class="d-none text-light d-sm-inline mx-1">{{
+            username
+          }}</span
+          ><mat-icon class="pt-2 text-light">arrow_drop_down</mat-icon></a
+        >
+        <mat-menu #menu="matMenu">
+          <button mat-button routerLink="profile">
+            <mat-icon class="mr-1 mb-1">perm_identity</mat-icon>Profil</button
+          ><br />
+          <button mat-button routerLink="settings">
+            <mat-icon class="mr-1 mb-1">settings</mat-icon>Paramètres
+          </button>
+          <mat-divider></mat-divider>
+          <button mat-button (click)="LogOut()">
+            <mat-icon class="mr-1 mb-1">logout</mat-icon>
+            Se déconnecter
+          </button>
+        </mat-menu>
       </div>
     </div>
   </mat-drawer>
 
   <mat-toolbar class="bg-dark">
-  <button
+    <button
       type="button"
       mat-icon-button
       mat-button
-      
       (click)="drawer.toggle(); isOut = !isOut"
     >
-      <mat-icon class="text-light" *ngIf="!isOut; else isIn">chevron_right</mat-icon>
-      <ng-template #isIn><mat-icon class="text-light">chevron_left</mat-icon></ng-template>
+      <mat-icon class="text-light" *ngIf="!isOut; else isIn"
+        >chevron_right</mat-icon
+      >
+      <ng-template #isIn
+        ><mat-icon class="text-light">chevron_left</mat-icon></ng-template
+      >
     </button>
-  
- 
-  <button mat-button>
-  <mat-icon color="warn">sms_failed</mat-icon>
-  </button>
-  <button mat-button>
-  <mat-icon color="accent">information</mat-icon>
-</button>
-<span class="example-spacer"></span>
-  <button mat-button [matMenuTriggerFor]="variableMenu">
-    <mat-icon color="primary">menu</mat-icon>
-  </button>
-  <mat-menu #variableMenu="matMenu">
-  <button mat-menu-item>Choisir un modèle</button>
-  <button mat-menu-item>Créer un nouveau modèle</button>
-  </mat-menu>
+
+    <button mat-button>
+      <mat-icon color="warn">sms_failed</mat-icon>
+    </button>
+    <button mat-button>
+      <mat-icon color="accent">information</mat-icon>
+    </button>
+    <span class="example-spacer"></span>
+    <button mat-button [matMenuTriggerFor]="variableMenu">
+      <mat-icon color="primary">menu</mat-icon>
+    </button>
+    <mat-menu #variableMenu="matMenu">
+      <button mat-menu-item>Choisir un modèle</button>
+      <button mat-menu-item>Créer un nouveau modèle</button>
+    </mat-menu>
   </mat-toolbar>
   <div class="example-sidenav-content">
-    
     <br />
     <router-outlet></router-outlet>
-    
   </div>
 </mat-drawer-container>
 <!-- <h1>Bienvenue {{ this.username }} !</h1>
