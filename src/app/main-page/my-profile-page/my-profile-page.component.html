@@ -1,5 +1,5 @@
 <mat-card >
-  <form *ngIf="!toSuccess; else success">
+  <form>
   <div class="container rounded bg-white">
     <div class="row">
       <div class="col-md-3 border-right">
@@ -21,9 +21,9 @@
           /><span class="font-weight-bold">{{ username }}</span
           ><span class="text-black-50">{{ user_mail }}</span
           ><span><br><div class="text-center">
-          <button (click)="showSuccess()" mat-button color="accent" class="border" type="button">
+          <!-- <button (click)="showSuccess()" mat-button color="accent" class="border" type="button">
             Voir les succès 🏆
-          </button>
+          </button> -->
         </div> </span>
         </div>
       </div>
@@ -38,7 +38,7 @@
               <mat-label class="labels">Nom d'utilisateur</mat-label
               ><input
                 mat-input
-                #user_name
+                #new_user_name
                 type="text"
                 class="form-control"
                 placeholder="Nom d'utilisateur"
@@ -50,8 +50,10 @@
             <div class="col-md-12">
               <mat-label class="labels">Email</mat-label
               ><input
+              disabled
                 mat-input
                 type="text"
+                #new_user_mail
                 class="form-control"
                 placeholder="Email"
                 value="{{ user_mail }}"
@@ -67,7 +69,6 @@
                 type="text"
                 disabled
                 class="form-control"
-                placeholder="Email"
                 value="{{ last_login }}"
               />
             </div>
@@ -101,6 +102,7 @@
                     </button>
                   </mat-chip>
                   <input
+                  mat-input
                     placeholder="Allergène ..."
                     #fruitInput
                     [matAutocomplete]="auto"
@@ -126,7 +128,7 @@
         </div>
       </div>
       <div class="text-center">
-        <button mat-button color="primary" class="border" type="button">
+        <button mat-button color="primary" (click)="writeUser(new_user_name.value,fruits)" class="border" type="button">
           Sauvegarder les changements
         </button>
       </div>
@@ -134,5 +136,5 @@
   </div>
   </form>
 </mat-card>
-<ng-template #success>
-<router-outlet></router-outlet> </ng-template>
+<!-- <ng-template #success>
+<router-outlet></router-outlet> </ng-template> -->

@@ -7,6 +7,7 @@ import { Observable } from 'rxjs';
 import { environment } from '../../../environments/environment';
 import {map, startWith} from 'rxjs/operators';
 import { Router } from '@angular/router';
+import { MatSnackBar } from '@angular/material/snack-bar';
 
 export interface User {
   _id: any;
@@ -17,6 +18,8 @@ export interface User {
   created: Date;
   user_mail : string;
   roles : Array<string>;
+  allergens:Array<string>;
+  avatarUrl : string;
 }
 
 @Component({
@@ -36,18 +39,23 @@ created : any;
 last_login : any;
 roles : Array<String>
 toSuccess = false;
+allergen : string;
 showSuccess() {
   this.toSuccess = true;
   const redirectUrl = "../success"
   this.router.navigate(['/dashboard/profile/success']);
 
 }
-  ngOnInit() {
-   const user = this.app.allUsers[sessionStorage.getItem("userId")]
+user = this.app.allUsers[sessionStorage.getItem("userId")]
     
-  const mongo =user.mongoClient('Cluster0');
-  const collection = mongo.db('Data').collection("users");
-  collection.find({'id':user.id}).then((value:Array<User>)=>{ 
+   mongo =this.user.mongoClient('Cluster0');
+  collection = this.mongo.db('Data').collection("users");
+  ngOnInit() {
+  //  const user = this.app.allUsers[sessionStorage.getItem("userId")]
+    
+  // const mongo =user.mongoClient('Cluster0');
+  // const collection = mongo.db('Data').collection("users");
+  this.collection.find({'id':this.user.id}).then((value:Array<User>)=>{ 
     this.user_mail = value[0].user_mail
     this.username = value[0].username
     this.created = value[0].created.toLocaleString()
@@ -65,13 +73,15 @@ showSuccess() {
 
   @ViewChild('fruitInput') fruitInput: ElementRef<HTMLInputElement>;
 
-  constructor(public router: Router) {
+  constructor(public router: Router,private _snackBar: MatSnackBar) {
     this.filteredFruits = this.fruitCtrl.valueChanges.pipe(
       startWith(null),
       map((fruit: string | null) => (fruit ? this._filter(fruit) : this.allFruits.slice())),
     );
   }
-
+  openSnackBar(message: string, action: string) {
+    return this._snackBar.open(message, action);
+  }
   add(event: MatChipInputEvent): void {
     const value = (event.value || '').trim();
 
@@ -94,6 +104,15 @@ showSuccess() {
     }
   }
 
+  writeUser(u_sername:string,allergens:Array<string>) {
+    this.collection.updateOne({'id':this.user.id},{$set:{'username':u_sername,'allergies':allergens}}).then((value)=> {
+      this.openSnackBar("Les modifications ont été enregistrées !","Recharger la page").afterDismissed().subscribe(() => {
+        console.log('The snackbar was dismissed');
+      });
+    })
+  }
+
+  
   selected(event: MatAutocompleteSelectedEvent): void {
     this.fruits.push(event.option.viewValue);
     this.fruitInput.nativeElement.value = '';

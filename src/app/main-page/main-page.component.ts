@@ -54,22 +54,24 @@ export class MainPageComponent implements OnInit {
     //const user = JSON.parse(sessionStorage.getItem("user"))
     
     //this.userRefreshToken = sessionStorage.getItem("userRefreshToken");
-    this.userRefreshToken = sessionStorage.getItem("userRefreshToken");
     //console.log(this.app.currentUser)
-    this.email = sessionStorage.getItem("email");
-    this.username = sessionStorage.getItem("username");
     
     this.authorized = sessionStorage.getItem("userId")=="63429fec8679d1a724204416";
   const mongo =user.mongoClient('Cluster0');
-  const collection = mongo.db('Data').collection("Analyses");
-  const collection2 = mongo.db('Data').collection("users");
+ const Data = mongo.db("Data")
+  const Analyses = Data.collection("Analyses");
+  const users = Data.collection("users");
   //console.log(this.app.allUsers)
- 
+  users.find({"id":user.id}).then((value)=>{
+    
+    this.username = value[0].username
+    this.email = value.user_mail
+  })
   
     //console.log(this.app.allUsers[key].isLoggedIn)
   
   //console.log(this.connected_users)
-  collection.find({active:true}).then((value)=>{
+  Analyses.find({active:true}).then((value)=>{
     this.analyses_actives = value.length.toString()
   })
   // collection2.find({}).then((value)=>{
