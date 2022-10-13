@@ -1,8 +1,8 @@
-<mat-card >
+<mat-card class="text-wrap">
   <form>
   <div class="container rounded bg-white">
     <div class="row">
-      <div class="col-md-3 border-right">
+      <div class="col-md-3">
         <div
           class="
             d-flex
@@ -27,7 +27,7 @@
         </div> </span>
         </div>
       </div>
-      <div class="col-md-5 border-right">
+      <div class="col-md-5 ">
         <div class="p-3 py-3">
           <div class="d-flex justify-content-between align-items-center mb-3">
             <h4 class="text-right">Profil</h4>
@@ -126,10 +126,7 @@
                 </mat-autocomplete>
                 
               </mat-form-field>
-              Ou : <br>
-              
-              <mat-checkbox #NoAllergyConfirmation disabled="{{!condition}}">Je confirme n'avoir aucune allergie alimentaire connue à ce jour.{{fruits.length}}</mat-checkbox>
-              
+             
               
             </div>
           </div>
@@ -137,7 +134,7 @@
       </div>
       <div class="text-center">
         
-        <button mat-button color="primary" (click)="writeUser(new_user_name.value,fruits,NoAllergyConfirmation.value=='true')" class="border" type="button">
+        <button mat-button color="primary" (click)="writeUser(new_user_name.value,fruits)" class="border" type="button">
           Sauvegarder les changements
         </button>
       </div>

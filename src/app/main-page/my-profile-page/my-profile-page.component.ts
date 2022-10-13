@@ -20,7 +20,6 @@ export interface User {
   roles : Array<string>;
   allergies:Array<string>;
   avatarUrl : string;
-  NoAllergyConfirmation : boolean
 }
 
 @Component({
@@ -42,7 +41,6 @@ roles : Array<String>
 toSuccess = false;
 allergens : string;
 fruits: string[] = [];
-ReadAllergyConfirmation : boolean;
 condition :boolean;
 showSuccess() {
   this.toSuccess = true;
@@ -60,6 +58,17 @@ user = this.app.allUsers[sessionStorage.getItem("userId")]
   // const mongo =user.mongoClient('Cluster0');
   // const collection = mongo.db('Data').collection("users");
   
+  window.onbeforeunload = function (event) {
+    var message = 'Important: Please click on \'Save\' button to leave this page.';
+    if (typeof event == 'undefined') {
+        event = window.event;
+    }
+    if (event) {
+        event.returnValue = message;
+    }
+    return message;
+};
+
   this.collection.find({'id':this.user.id}).then((value:Array<User>)=>{ 
     this.user_mail = value[0].user_mail
     this.username = value[0].username
@@ -67,7 +76,6 @@ user = this.app.allUsers[sessionStorage.getItem("userId")]
     this.last_login = value[0].last_login.toLocaleString()
     this.roles = value[0].roles
     this.fruits = value[0].allergies
-    this.ReadAllergyConfirmation = value[0].NoAllergyConfirmation
      
   })
 
@@ -113,8 +121,8 @@ user = this.app.allUsers[sessionStorage.getItem("userId")]
     
   }
 
-  writeUser(u_sername:string,allergens:Array<string>,allergyConfirmation:boolean) {
-    this.collection.updateOne({'id':this.user.id},{$set:{'username':u_sername,'allergies':allergens,"NoAllergyConfirmation":allergyConfirmation}}).then((value)=> {
+  writeUser(u_sername:string,allergens:Array<string>) {
+    this.collection.updateOne({'id':this.user.id},{$set:{'username':u_sername,'allergies':allergens}}).then((value)=> {
       
       this.openSnackBar("Les modifications ont été enregistrées !","Recharger la page").afterDismissed().subscribe(() => {
         window.location.reload()
